@@ -35,7 +35,8 @@ def predict_url():
             }), 400
 
         # Make prediction
-        prediction = model.predict([url])[0]
+        features = encoder.transform([url])
+        prediction = model.predict(features)[0]
         label = encoder.inverse_transform([prediction])[0]
         malicious = bool(prediction)
 
@@ -55,5 +56,6 @@ def predict_url():
 if __name__ == '__main__':
 
     app.run(debug=True, host='0.0.0.0', port=8000)
+
 
 
